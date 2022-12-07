@@ -159,8 +159,7 @@ class splashPage:
         # assets((105,200,255)).quads_2_color(200,350,350,600, (255,0,255),"kiri bawah")
         # assets((220,220,220)).quads_2_color(0,1200,0,50, (0,255,255),"kanan atas")
         #assets((255,222,173)).quads_2_color(0,1200,50,100, (255,255,0),"kanan bawah")
-
-
+        
         # Tanah
         assets((207, 63, 10)).quads_1_color(0,1200,0,50)
         # Rumput
@@ -210,9 +209,12 @@ class splashPage:
         glVertex2f(450,280)
         glEnd()
         # Pintu
-        # assets((72,209,204)).quads_2_color(410,490,75,160, (188,143,143), "kiri bawah")
-        assets((150,205,205)).quads_1_color(410,490,75,160)
-        assets((150,205,205)).circle(40,450,160)
+        assets((73, 96, 102)).quads_1_color(410,490,75,160)
+        assets((73, 96, 102)).circle(40,450,160)
+
+        assets((0,139,139)).quads_1_color(425,475,208,230) # papan nama
+        assets((255,255,255)).drawBitmapText("cat",435,213,0)
+
     def bintang():
         global pos_x_bintang,pos_y_bintang,bintang
         glPushMatrix()
@@ -311,7 +313,7 @@ class splashPage:
 
     def buttonSTR():
         glPushMatrix()
-        assets((0,255,0)).quads_1_color(550,800,350,400)
+        assets((0,205,205)).quads_1_color(550,800,350,400)
         assets((255,255,255)).drawBitmapText("P L A Y  G A M E S",575,370,0)
         glPopMatrix()
     def run_splah():
@@ -366,8 +368,8 @@ class game:
                 speedRTG[1] +=1
         if health == 0:
             assets((245, 25, 10)).drawBitmapText(" G A M E  O V E R",500,300,0)
-            assets((255,255,255)).drawBitmapText(f"Score Akhir: {point}",520,250,0)
-            assets((255,255,255)).drawBitmapText(f"Please Your Enter To Play Again",443,200,0)
+            assets((0,205,205)).drawBitmapText(f"Score Akhir: {point}",520,250,0)
+            assets((0,205,205)).drawBitmapText(f"Please Your Enter To Play Again",443,200,0)
             # run_game == False
     def kucing():
         global xposition,yposition,xtikus,ytikus,point,tikusbolean,ringtangan_bool,x_rintangan,y_rintangan,health,point,play,ringtangan_bool1,x_rintangan1,y_rintangan1,run_game
@@ -802,7 +804,6 @@ class game:
         glVertex2f(85.1264330903743, 84.2081429723503)
         glVertex2f(80.6866440206695, 86.598798625269)
         glEnd()
-
         # bawahan
         #Sblm_Ekor
         glBegin(GL_POLYGON)

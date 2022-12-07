@@ -8,8 +8,6 @@ import random
 w,h= 1200,600
 xposition=150
 yposition=50
-node_x=[]
-node_y=[]
 pos_x_bintang = 10
 pos_y_bintang = 10
 pos_x_bintang1 = 10
@@ -38,7 +36,6 @@ speedRTG = [5,2.5]
 
 class assets:
     def __init__(self,_color):
-        # self.color = _color if type(_color)==set or _color!='' else (255,255,255)
         self.color = _color if type(_color)==set or _color!='' else (255,255,255)
 
     def quads_1_color(self,_x_min,_x_max,_y_min,_y_max):
@@ -131,6 +128,7 @@ class assets:
 
 class splashPage:
     def kurang(self, bg_dikurangi):
+
         bg_dikurangi -= 100
         return bg_dikurangi
     
@@ -219,18 +217,9 @@ class splashPage:
         global pos_x_bintang,pos_y_bintang,bintang
         glPushMatrix()
         glTranslated(pos_x_bintang,pos_y_bintang,0)
-        if bintang == False:
-            pos_x_bintang -=2
-            if pos_x_bintang <= 00:
-                    pos_x_bintang = 800
-                    # bintang = True
-        # if bintang == True:
-        #     pos_x_bintang +=5
-        #     if pos_x_bintang >= 600:
-        #         pos_x_bintang == False
-
-        # assets((0,255,0)).quads_1_color(0,100,0,50)
-        # Bintang-bintang
+        pos_x_bintang -=2
+        if pos_x_bintang <= 0:
+                pos_x_bintang = 800
         glColor3ub(200,200,255)
         glPointSize(2)
         glBegin(GL_POINTS)
@@ -280,14 +269,6 @@ class splashPage:
         print(pos_x_bintang1)
         if pos_x_bintang1 >= 800:
                 pos_x_bintang1 = 10
-                    # bintang = True
-        # if bintang == True:
-        #     pos_x_bintang +=5
-        #     if pos_x_bintang >= 600:
-        #         pos_x_bintang == False
-
-        # assets((0,255,0)).quads_1_color(0,100,0,50)
-        # Bintang-bintang
         glColor3ub(200,200,255)
         glPointSize(2)
         glBegin(GL_POINTS)
@@ -328,16 +309,10 @@ class splashPage:
         glEnd()
         glPopMatrix()
 
-
-    def drawtext(self):
-        assets((255,255,255)).drawBitmapText("Welcome Labmat Player",400,375,0)
-        assets((255,255,255)).drawBitmapTextstart("Start",497,240,0)
     def buttonSTR():
         glPushMatrix()
         assets((0,255,0)).quads_1_color(550,800,350,400)
         assets((255,255,255)).drawBitmapText("P L A Y  G A M E S",575,370,0)
-        # assets((0,255,0)).circle(16,500,245)
-        # assets((0,255,0)).circle(16,553,245)
         glPopMatrix()
     def run_splah():
         glPushMatrix()
@@ -346,7 +321,6 @@ class splashPage:
         splashPage.bintang1()
         game.kucing()
         splashPage.buttonSTR()
-        # splashPage.drawtext()
         glPopMatrix()
 class game:
     def kurang(self, bg_dikurangi):
@@ -373,11 +347,11 @@ class game:
         if opening_to_game_x <= 0:
             opening_to_game_x = 0
     def bacgrond():
-        global point,health,play
+        global point,health
         assets((2, 5, 26)).quads_2_color(0,1200,0,600,(65, 87, 224),"kanan atas")
         assets((1,1,1)).quads_2_color(0,1200,550,600,(65, 87, 224),"kanan atas")
         assets((1,1,1)).quads_2_color(-20,1200,-20,50,(65, 87, 224),"kanan atas")
-        assets((255,255,255)).drawBitmapText(f"score : {point}",800,570,0)
+        assets((255,255,255)).drawBitmapText(f"Score : {point}",800,570,0)
         assets((255,255,255)).drawBitmapText(f"Healt : {health}",950,570,0)
     def actions():
         global  xposition,yposition,health,play,point,health,speedRTG
@@ -386,12 +360,14 @@ class game:
         if point %  1000 == 0:
             if health < 3:
                 health = 3
-            elif health ==3:
+            elif health > 3:
                 health +=1
                 speedRTG[0] +=1
                 speedRTG[1] +=1
         if health == 0:
-            assets((255,255,255)).drawBitmapText(" G A M E  O V E R",500,300,0)
+            assets((245, 25, 10)).drawBitmapText(" G A M E  O V E R",500,300,0)
+            assets((255,255,255)).drawBitmapText(f"Score Akhir: {point}",520,250,0)
+            assets((255,255,255)).drawBitmapText(f"Please Your Enter To Play Again",443,200,0)
             # run_game == False
     def kucing():
         global xposition,yposition,xtikus,ytikus,point,tikusbolean,ringtangan_bool,x_rintangan,y_rintangan,health,point,play,ringtangan_bool1,x_rintangan1,y_rintangan1,run_game
@@ -622,14 +598,14 @@ class game:
 
     def rintangan():
         global x_rintangan,y_rintangan,speedRTG,run_game
-        # time.sleep(1)
         glPushMatrix()
         glTranslated(x_rintangan,y_rintangan,0)
-        if run_game == True:
+        if run_game == True:    
             x_rintangan -=speedRTG[0]
             if x_rintangan < -100:
-                x_rintangan = 1200
+
                 y_rintangan = random.randrange(50,500,50)
+                x_rintangan = 1200
             assets((1,1,1)).circle(20,100,100)
             assets((255,255,255)).circle(10,100,100)
         glPopMatrix()
@@ -988,11 +964,14 @@ def mykeyboradSpeed(key,x,y):
         speed-=5
     if speed >= 20:
         speed +=0
-    if health == 0 and key == b'3':
+    if speed <=5:
+        speed-=0
+        speed = 5
+    if health == 0 and ord(key) == ord(b'\r'):
             point = 0
             play = False
-            run_game = True
-
+            xposition=150
+            yposition=50
 
     print('kalah')
             
@@ -1011,14 +990,11 @@ def iterate():
     glMatrixMode (GL_MODELVIEW)
     glLoadIdentity()
 
-
 def showScreen():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glClearColor(255,255,255,1)
     glLoadIdentity()
     iterate()
-    # splashPage.run_splah()
-    # labmath.labirin()
     page()
     glutSwapBuffers()
 
